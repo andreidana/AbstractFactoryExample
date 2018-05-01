@@ -17,3 +17,9 @@ This pattern is best used when:
 - It makes exchanging product families easy
 - It promotes consistency among products
 - Supporting new kinds of products is difficult
+
+**Related Patterns**
+
+- [Factory Method](https://github.com/andreidana/FactoryMethodExample)
+- [Prototype](https://github.com/andreidana/PrototypeExample)
+- [Singleton](https://github.com/andreidana/SingletonExample)
