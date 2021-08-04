@@ -1,40 +1,44 @@
-﻿using AbstractFactoryExample.Fields;
-using AbstractFactoryExample.Rules;
-using AbstractFactoryExample.Teams;
-using System;
+﻿using System;
 
 namespace AbstractFactoryExample
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Console.WriteLine("Please select your favourite sport(F - Football, H - Handball, R - Rugby)");
+            Console.WriteLine("Please select your favorite sport(F - Football, H - Handball, R - Rugby)");
             var inputCharacter = Convert.ToChar(Console.Read());
 
-            IAbstractSportsFactory abstractFactory = CreateFactoryForChosenSport(inputCharacter);
+            var abstractFactory = CreateFactoryForChosenSport(inputCharacter);
             PrintCreatedSportDetails(abstractFactory);
         }
 
         private static IAbstractSportsFactory CreateFactoryForChosenSport(char inputCharacter)
         {
             IAbstractSportsFactory abstractFactory;
-            if (inputCharacter == 'F')
-                abstractFactory = new FootballFactory();
-            else if (inputCharacter == 'H')
-                abstractFactory = new HandballFactory();
-            else if (inputCharacter == 'R')
-                abstractFactory = new RugbyFactory();
-            else
-                abstractFactory = new FootballFactory();
+            switch (inputCharacter)
+            {
+                case 'F':
+                    abstractFactory = new FootballFactory();
+                    break;
+                case 'H':
+                    abstractFactory = new HandballFactory();
+                    break;
+                case 'R':
+                    abstractFactory = new RugbyFactory();
+                    break;
+                default:
+                    abstractFactory = new FootballFactory();
+                    break;
+            }
             return abstractFactory;
         }
 
         private static void PrintCreatedSportDetails(IAbstractSportsFactory abstractFactory)
         {
-            IField createdField = abstractFactory.CreateField();
-            IRules createdRules = abstractFactory.CreateRules();
-            ITeam createdTeam = abstractFactory.CreateTeam();
+            var createdField = abstractFactory.CreateField();
+            var createdRules = abstractFactory.CreateRules();
+            var createdTeam = abstractFactory.CreateTeam();
 
             Console.WriteLine("We have the following number of people in the team:");
             Console.WriteLine(createdTeam.GetNumberOfPeopleInTeam());
